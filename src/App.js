@@ -8,7 +8,8 @@ class App extends Component {
     this.state = {
       items: {},
       isLoaded: false,
-    }
+    };
+    // this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
@@ -21,11 +22,14 @@ class App extends Component {
         })
       });
   }
-  
-  onClick(){
-    fetch("https://localhost:5001/calculates", 
-    { method: 'POST', data})
-    .then()
+
+  onClick() {
+    var data = { id: this.state.items.id, result: 24 };
+    fetch("https://localhost:5001/calculates", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
   }
   
   render() {
@@ -50,7 +54,7 @@ class App extends Component {
                 </div>
               </div>
             </div>
-            <button onClick={this.onClick()}>Calculate</button>
+            <button onClick={this.onClick.bind(this)}>Calculate</button>
           </div>
         </div>
       );
