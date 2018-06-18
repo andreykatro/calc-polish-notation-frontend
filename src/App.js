@@ -21,7 +21,13 @@ class App extends Component {
         })
       });
   }
-
+  
+  onClick(){
+    fetch("https://localhost:5001/calculates", 
+    { method: 'POST', data})
+    .then()
+  }
+  
   render() {
 
     var { isLoaded, items } = this.state;
