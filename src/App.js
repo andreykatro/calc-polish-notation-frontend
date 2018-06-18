@@ -8,8 +8,8 @@ class App extends Component {
     this.state = {
       items: {},
       isLoaded: false,
+      passed: "",
     };
-    // this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
@@ -29,12 +29,18 @@ class App extends Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
-    });
+    }).then(res => res.json())
+      .then(json => {
+        this.setState({
+          isLoaded: true,
+          passed: json.passed.toString(),
+        })
+      });
   }
   
   render() {
 
-    var { isLoaded, items } = this.state;
+    var { isLoaded, items, passed} = this.state;
 
     if (!isLoaded) {
       return <div>Loading...</div>;
@@ -50,7 +56,7 @@ class App extends Component {
                 <div className="divTableRow">
                   <div className="divTableCell">{items.id}</div>
                   <div className="divTableCell"> {items.expression}</div>
-                  <div className="divTableCell">{items.result}</div>
+                  <div className="divTableCell">{passed}</div>
                 </div>
               </div>
             </div>
